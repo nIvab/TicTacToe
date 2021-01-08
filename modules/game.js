@@ -13,13 +13,13 @@ Some quick notes:
         - make moves 
     What do I want the computer player class to do? 
         - make moves 
-        - utilise the minmax algorithm to make the moves 
+        - utilise the minmax algorithm to find best moves to make  
 */
 
 const createPlayer = (type, marker) => {
     return {type, marker} ; 
 }
-const game = (initGame) => {
+const game = () => {
     let board = [
         "e", "e", "e",
         "e", "e", "e",
@@ -40,23 +40,21 @@ const game = (initGame) => {
         [2, 4, 6],
     ]
 
-    function PVPorPVE(input){
+    const PVPorPVE = (input) => {
+        /* Checks to see if the user would like to play against a human or 
+        against an AI. Then creates the appropriate players needed.*/
         if(input == "PVP"){
-            player1 = createPlayer("player", "X")
-            player2 = createPlayer("player", "O")
-        } else if(inpt == "PVE"){
-            let chooser = Math.random() ; 
-            if(chooser < 1/2){
-                player1 = createPlayer("player", "X") ; 
-                player2 = createPlayer("computer", "O") ; 
-            } else { 
-                player1 = createPlayer("computer", "O") ;
-                player2 = createPlayer("player", "X") ;
-            }
+            const player1 = createPlayer("player", "X")
+            const player2 = createPlayer("player", "O")
+            return {player1, player2} ; 
+        } else if(input == "PVE"){
+            const player1 = createPlayer("computer", "O") ;
+            const player2 = createPlayer("player", "X") ;
+            return {player1, player2} ; 
         }
     }  
 
-    function checkIfGameOver() {
+    const checkIfGameOver = () => {
         //define flags for each outcome
         let player1WinCheck = false;
         let player2WinCheck = false;
@@ -82,15 +80,29 @@ const game = (initGame) => {
         })
 
         if(player1WinCheck == true){
-            return "player won" ;
+            return "player 1 won" ;
         } else if(player2WinCheck == true){
-            return "computer won" ; 
+            return "player 2 won" ; 
         } else if(drawWinCheck == true || emptySpaceCheck == false){
             return "it was a draw" ; 
         } else{
             return "game not over" ; 
         }
     }
+
+    const emptyIndicies = () => {
+        let indexArr = [] ;  
+        for(i = 0 ; i < board.length() ; i++){
+            if(board[i]=="e"){
+                indexArr.push(i) ; 
+            }             
+        }
+        return indexArr ; 
+    }
+
+    return{board, winConditions, PVPorPVE, checkIfGameOver, emptyIndicies}
 }
+
+
 
 export {createPlayer, game}
