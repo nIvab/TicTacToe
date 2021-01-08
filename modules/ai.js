@@ -4,7 +4,7 @@ const compPlayer = ()=>{
     const {currentGame} = game() ; 
     const {aiPlayer, huPlayer} = PVPorPVE("PVE") ; 
 
-    function minimax(calcBoard, player){
+    const minimax = (calcBoard, player) =>{
         let emptySpots = emptyIndicies(calcBoard) ; 
 
         //set up base cases for recursion 
@@ -53,4 +53,10 @@ const compPlayer = ()=>{
         }
         return moves[bestMove] ; 
     }
+
+    const bestSpot = () => {
+        return minimax(board, aiPlayer).index ; 
+    } 
 }
+
+export {compPlayer}

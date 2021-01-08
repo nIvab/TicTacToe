@@ -54,6 +54,36 @@ const game = () => {
         }
     }  
 
+    const startGame = () => {
+        board = [
+            "e", "e", "e",
+            "e", "e", "e",
+            "e", "e", "e",
+        ]; 
+        turn(player1) ; 
+    }
+
+
+    const turnClick = (marker, divContainer) =>{
+        divContainer.forEach(addEventListener("click", (sqaure) =>{
+            sqaure.innerHTML = marker ; 
+            sqaure.style.color = "white"
+        }))
+    }
+    const turn = (player, divContainer) =>{
+        if(checkIfGameOver!="game not over"){
+            return checkIfGameOver() ; 
+        } else{
+            if(player == player1){
+                turnClick(player.marker, divContainer)
+                return turn(player2) ; 
+            } else{
+                turnClick(player.marker, divContainer)
+                return turn(player1) ; 
+            }
+        }
+    }
+
     const checkIfGameOver = () => {
         //define flags for each outcome
         let player1WinCheck = false;
@@ -100,7 +130,15 @@ const game = () => {
         return indexArr ; 
     }
 
-    return{board, winConditions, PVPorPVE, checkIfGameOver, emptyIndicies}
+    return{
+            board, 
+            winConditions,
+            PVPorPVE, 
+            startGame, 
+            turn, 
+            checkIfGameOver, 
+            emptyIndicies
+        }
 }
 
 
