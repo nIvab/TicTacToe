@@ -15,10 +15,8 @@ Some quick notes:
         - make moves 
         - utilise the minmax algorithm to find best moves to make  
 */
+import compPlayer from "./ai.js"
 
-const createPlayer = (type, marker) => {
-    return {type, marker} ; 
-}
 const game = () => {
     let board = [
         "e", "e", "e",
@@ -40,47 +38,57 @@ const game = () => {
         [2, 4, 6],
     ]
 
+    const createPlayer = (type, marker, number) => {
+        return {type, marker, number} ; 
+    }
+
     const PVPorPVE = (input) => {
         /* Checks to see if the user would like to play against a human or 
         against an AI. Then creates the appropriate players needed.*/
         if(input == "PVP"){
-            const player1 = createPlayer("player", "X")
-            const player2 = createPlayer("player", "O")
-            return {player1, player2} ; 
+            const player1 = createPlayer("player", "X", 1)
+            const player2 = createPlayer("player", "O", 2)
+            return{player1, player2} ; 
         } else if(input == "PVE"){
-            const player1 = createPlayer("computer", "O") ;
-            const player2 = createPlayer("player", "X") ;
+            const player1 = createPlayer("player", "X", 1) ;
+            const player2 = createPlayer("computer", "O", 2) ;
             return {player1, player2} ; 
         }
     }  
 
-    const startGame = () => {
+    const startGame = (divContainer, input) => {
         board = [
             "e", "e", "e",
             "e", "e", "e",
             "e", "e", "e",
         ]; 
-        turn(player1) ; 
+        let {player1, player2} = PVPorPVE(input) ; 
+        turn(player1, player2, divContainer) ; 
+        console.log(divContainer)
     }
-
 
     const turnClick = (marker, divContainer) =>{
-        divContainer.forEach(addEventListener("click", (sqaure) =>{
-            sqaure.innerHTML = marker ; 
-            sqaure.style.color = "white"
-        }))
+        for(let i=0; i < divContainer.length ; i++){
+            divContainer[i].addEventListener("click", (sqaure) =>{
+                sqaure.innerHTML = marker ; 
+                if(marker == "X"){
+                    board[i] = "X"; 
+                } else{
+                    board[i] = "O" ; 
+                }
+            })
+        }
+        return board ; 
     }
-    const turn = (player, divContainer) =>{
-        if(checkIfGameOver!="game not over"){
+
+    const turn = (player, altPlayer, divContainer) =>{
+        if(checkIfGameOver()!="game not over"){
+            console.log(checkIfGameOver())
             return checkIfGameOver() ; 
         } else{
-            if(player == player1){
-                turnClick(player.marker, divContainer)
-                return turn(player2) ; 
-            } else{
-                turnClick(player.marker, divContainer)
-                return turn(player1) ; 
-            }
+            console.log(divContainer)
+            turnClick(player, divContainer) ; 
+            turn(altPlayer, player, divContainer) ; 
         }
     }
 
@@ -91,19 +99,18 @@ const game = () => {
         let drawWinCheck = false;   // need this to be true AND no empty spaces
         let emptySpaceCheck = false; // 1:  there is empty spaces 0: there is not
 
-        for (i = 0; i < board.length(); i++) {
+        for (let i = 0; i < board.length; i++) {
             if (board[i] == "e") {
+                console.log(board[i])
                 emptySpaceCheck = true;
             }
         }
 
-        winConditions.forEach(winCond, windCond => {
-            if (board[winCond[0]] == "X" && board[windCond[1]] == "X" && board[winCond[2]] == "X") {
+        winConditions.forEach((winCond) => {
+            if (board[winCond[0]] == "X" && board[winCond[1]] == "X" && board[winCond[2]] == "X") {
                 player1WinCheck = true;
-                break;
-            } else if (board[winCond[0]] == "O" && board[windCond[1]] == "O" && board[winCond[2]] == "O") {
+            } else if (board[winCond[0]] == "O" && board[winCond[1]] == "O" && board[winCond[2]] == "O") {
                 player2WinCheck = false;
-                break;
             } else {
                 drawWinCheck = true;
             }
@@ -113,7 +120,7 @@ const game = () => {
             return "player 1 won" ;
         } else if(player2WinCheck == true){
             return "player 2 won" ; 
-        } else if(drawWinCheck == true || emptySpaceCheck == false){
+        } else if(drawWinCheck == true && emptySpaceCheck == false){
             return "it was a draw" ; 
         } else{
             return "game not over" ; 
@@ -122,7 +129,7 @@ const game = () => {
 
     const emptyIndicies = () => {
         let indexArr = [] ;  
-        for(i = 0 ; i < board.length() ; i++){
+        for(let i = 0 ; i < board.length ; i++){
             if(board[i]=="e"){
                 indexArr.push(i) ; 
             }             
@@ -134,13 +141,12 @@ const game = () => {
             board, 
             winConditions,
             PVPorPVE, 
-            startGame, 
+            startGame,
+            turnClick, 
             turn, 
             checkIfGameOver, 
             emptyIndicies
         }
 }
 
-
-
-export {createPlayer, game}
+export default game 

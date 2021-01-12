@@ -1,8 +1,4 @@
-import game from "./game.js"
-
-const compPlayer = ()=>{
-    const {currentGame} = game() ; 
-    const {aiPlayer, huPlayer} = PVPorPVE("PVE") ; 
+const compPlayer = (aiPlayer)=>{
 
     const minimax = (calcBoard, player) =>{
         let emptySpots = emptyIndicies(calcBoard) ; 
@@ -59,4 +55,4 @@ const compPlayer = ()=>{
     } 
 }
 
-export {compPlayer}
+export default compPlayer ; 
