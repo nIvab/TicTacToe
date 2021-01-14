@@ -1,4 +1,6 @@
 /* 
+There might be a bit too much going on here 
+
 Some quick notes:
     What do I want the class game to do?
         - construct the board we will be playing on  /d
@@ -22,9 +24,7 @@ const game = () => {
         "e", "e", "e",
         "e", "e", "e",
         "e", "e", "e",
-    ];  // e for empty, p for player, c for computer
-
-    let gameRunning = true // as soon as game is initiated game is running 
+    ];  // e for empty, change each to X or O depending on how game transpires 
 
     //if any of these cordinates are filled by either player game is over 
     const winConditions = [
@@ -56,31 +56,35 @@ const game = () => {
         }
     }  
 
+    //tightly coupled with turn() and turnClick()
     const startGame = (divContainer, input) => {
         board = [
             "e", "e", "e",
             "e", "e", "e",
             "e", "e", "e",
-        ]; 
+        ];  // hmmm is this necessary?
         let {player1, player2} = PVPorPVE(input) ; 
         turn(player1, player2, divContainer) ; 
         console.log(divContainer)
     }
 
+    // tightly coupled with turn() and startGame()
     const turnClick = (marker, divContainer) =>{
         for(let i=0; i < divContainer.length ; i++){
-            divContainer[i].addEventListener("click", (sqaure) =>{
-                sqaure.innerHTML = marker ; 
-                if(marker == "X"){
-                    board[i] = "X"; 
-                } else{
-                    board[i] = "O" ; 
-                }
-            })
+            if(board[i] == "e"){    
+                divContainer[i].addEventListener("click", (sqaure) =>{
+                    sqaure.innerHTML = marker ; 
+                    if(marker == "X"){
+                        board[i] = "X"; 
+                    } else if(marker == "O"){
+                        board[i] = "O" ; 
+                    }
+                })
+            }
         }
-        return board ; 
     }
 
+    // tightly coupled with startGame() and turnClick()
     const turn = (player, altPlayer, divContainer) =>{
         if(checkIfGameOver()!="game not over"){
             console.log(checkIfGameOver())
@@ -99,13 +103,15 @@ const game = () => {
         let drawWinCheck = false;   // need this to be true AND no empty spaces
         let emptySpaceCheck = false; // 1:  there is empty spaces 0: there is not
 
+        // for loop checks to see if there is any empty spaces (ie game still running 
+        // if none of win conditions are met )
         for (let i = 0; i < board.length; i++) {
             if (board[i] == "e") {
                 console.log(board[i])
                 emptySpaceCheck = true;
             }
         }
-
+        // check the indicies of each win condition against the board
         winConditions.forEach((winCond) => {
             if (board[winCond[0]] == "X" && board[winCond[1]] == "X" && board[winCond[2]] == "X") {
                 player1WinCheck = true;
@@ -115,7 +121,7 @@ const game = () => {
                 drawWinCheck = true;
             }
         })
-
+        // return the results 
         if(player1WinCheck == true){
             return "player 1 won" ;
         } else if(player2WinCheck == true){
@@ -127,7 +133,9 @@ const game = () => {
         }
     }
 
+
     const emptyIndicies = () => {
+        // returns array with indicies of empty spots
         let indexArr = [] ;  
         for(let i = 0 ; i < board.length ; i++){
             if(board[i]=="e"){

@@ -1,5 +1,5 @@
 import game from "./modules/game.js"
-import compPlayer from "./modules/ai.js"
+import compPlayer from "./modules/ai.js" // hmmm
 
 const gameBox = document.querySelectorAll(".gameContainer") ; 
 const squares = document.querySelectorAll(".square")
@@ -10,12 +10,13 @@ const aiCheck = document.querySelector("#PVPorPVE")
 const {theGame} = game() ; 
 
 startButton.addEventListener("click", ()=>{
-    if(aiCheck.checked){
-        theGame.startGame(squares, "PVE") ; 
-    }else{
-        game().startGame(squares, "PVP")
-    }
     squares.forEach(square => {
         square.className = "squareActive"
     })
+
+    if(aiCheck.checked){
+        game().startGame(squares, "PVE") ; 
+    }else{
+        game().startGame(squares, "PVP")
+    }
 })
