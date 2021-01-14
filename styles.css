@@ -3,85 +3,169 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
 }
 body {
-	line-height: 1;
+    line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+    list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+    quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
-/* --------    CSS RESET ABOVE THIS LINE     ----- */ 
+/* --------    CSS RESET ABOVE THIS LINE     ----- */
 body {
     background-color: rgb(70, 70, 70);
 }
-h1 { 
+h1 {
     font-family: "Dosis";
     font-style: italic;
-    font-size:40pt;
-    margin-left: 35vw;
-    margin-top: 30px ;
+    text-align: center;
+    font-size: 40pt;
+    margin-left: 0;
+    margin-top: 30px;
     color: rgb(214, 216, 214);
 }
 
-/* -------------- CSS for BUTTONS HERE --------------- */ 
-.buttons{
+/* -------------- CSS for BUTTONS HERE --------------- */
+.buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2px ;
+    padding: 2px;
     font-style: italic;
+    outline: none;
+    padding: 30px;
 }
 
-.buttons button{ 
+.buttons button {
     font-family: "Signika Negative";
     display: inline-block;
-    height: 35px ; 
-    width: auto ; 
+    height: 35px;
+    width: auto;
     font-size: 18pt;
-    border: none ;
+    border: none;
     font-style: italic;
     background-color: rgb(233, 227, 227);
 }
 
-.buttons button:hover{
-    box-shadow: 0 0 30px 1px rgb(255, 255, 255) ; 
+.buttons button:hover {
+    box-shadow: 0 0 30px 1px rgb(255, 255, 255);
     transform: scale(1.1);
 }
 .switch {
@@ -95,7 +179,7 @@ h1 {
     transform: scale(1.1);
 }
 
-.switch input { 
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
@@ -109,8 +193,8 @@ h1 {
     right: 0;
     bottom: 0;
     background-color: rgb(233, 86, 86);
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .slider:before {
@@ -121,12 +205,12 @@ h1 {
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
-input:not(:checked) + .slider:hover{
-    box-shadow: 0 0 30px 1px rgb(250, 63, 63) ; 
+input:not(:checked) + .slider:hover {
+    box-shadow: 0 0 30px 1px rgb(250, 63, 63);
 }
 
 input:checked + .slider {
@@ -134,11 +218,11 @@ input:checked + .slider {
 }
 
 input:checked + .slider:hover {
-    box-shadow: 0 0 30px 1px rgb(93, 238, 124) ;
+    box-shadow: 0 0 30px 1px rgb(93, 238, 124);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -147,22 +231,21 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-.sliderContainer{
+.sliderContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: -2.1%;
+    margin: 0 auto;
 }
 
-.switchText{
-    font-family: "Quantico" ;
+.switchText {
+    font-family: "Quantico";
     color: rgb(182, 181, 181);
     font-size: 20pt;
 }
 
-
-/* ----------- CSS for GAME CONTAINER HERE --------- */ 
-.gameContainer{
+/* ----------- CSS for GAME CONTAINER HERE --------- */
+.gameContainer {
     display: grid;
     grid-template-columns: 130px 130px 130px;
     grid-template-rows: 130px 130px 130px;
@@ -170,24 +253,33 @@ input:checked + .slider:before {
     height: 50%;
     margin-top: 50px;
     justify-content: center;
-    grid-gap: 5px ; 
-
+    grid-gap: 5px;
 }
 
 .square {
     display: flex;
     justify-content: center;
+    font-family: "Signika Negative";
+    font-size: 25pt;
     align-items: center;
     flex-direction: column;
+    outline: none;
     width: 100%;
     height: 100%;
     margin: auto;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     color: white;
-    background:linear-gradient(135deg,rgb(255,0,0), rgb(204, 0, 255),rgb(0, 238, 255)) fixed;
+    background: linear-gradient(
+            135deg,
+            rgb(255, 0, 0),
+            rgb(204, 0, 255),
+            rgb(0, 238, 255)
+        )
+        fixed;
+    border: none;
 }
 
-.squareActive { 
+.squareActive {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -195,11 +287,13 @@ input:checked + .slider:before {
     width: 100%;
     height: 100%;
     margin: auto;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /*clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
     color: white;
-    background:linear-gradient(135deg,#5700f8  ,#c95f7f,  #ffaf7b) fixed;
+    background: linear-gradient(135deg, #5700f8, #c95f7f, #ffaf7b) fixed;
+    background-size: 200% auto;
+    transition: transform 0.2s ease;
 }
 
-.squareActive:hover{
+.squareActive:hover {
     transform: scale(1.05);
 }
