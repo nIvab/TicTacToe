@@ -34,7 +34,7 @@ const game = () => {
         }
     };
 
-    const turn = (player, altPlayer, divContainer) => {
+    const turn = (player, altPlayer, divContainer, gameOverDiv) => {
         for (let i = 0; i < divContainer.length; i++) {
             if (board[i] == "e") {
                 divContainer[i].addEventListener("click", (square) => {
@@ -47,6 +47,11 @@ const game = () => {
                     let temp = player;
                     player = altPlayer;
                     altPlayer = temp;
+                    console.log(checkIfGameOver());
+                    if (checkIfGameOver() != "game not over") {
+                        console.log("d1: ", divContainer);
+                        gameOverDude(divContainer, gameOverDiv);
+                    }
                 });
             }
         }
@@ -97,6 +102,36 @@ const game = () => {
         }
     };
 
+    const gameOverDude = (divContainer, gameOverDiv) => {
+        console.log("d2:", divContainer);
+        gameOverDiv.style.display = "block";
+
+        divContainer.forEach((square) => {
+            square.disabled = true;
+            square.className += "sqaureGameOver";
+        });
+    };
+
+    const checkIfResetNeeded = (divContainer) => {
+        let resetNeeded = false;
+        for (let i = 0; i < divContainer.length; i++) {
+            if (divContainer[i].innerHTML.length != 0) {
+                resetNeeded = true;
+            }
+        }
+        return resetNeeded;
+    };
+
+    const resetGame = (input, divContainer, gameOverDiv) => {
+        let newBoard = ["e", "e", "e", "e", "e", "e", "e", "e", "e"];
+        var { player1, player2 } = PVPorPVE(input);
+        divContainer.forEach((square) => {
+            square.innerHTML = " ";
+            square.disabled = false;
+        });
+        turn(player1, player2, divContainer, gameOverDiv);
+    };
+
     const emptyIndicies = () => {
         // returns array with indicies of empty spots
         let indexArr = [];
@@ -115,6 +150,9 @@ const game = () => {
         startGame,
         turn,
         checkIfGameOver,
+        gameOverDude,
+        checkIfResetNeeded,
+        resetGame,
         emptyIndicies,
     ];
 };

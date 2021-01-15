@@ -294,8 +294,8 @@ input:checked + .slider:before {
     height: 100%;
     margin: auto;
     color: white;
-    background: linear-gradient(135deg, #5700f8, #c95f7f, #ffaf7b) fixed;
-    background-size: 200% auto;
+    background: linear-gradient(135deg, #5700f8, #c9815f, #ffaf7b) fixed;
+    background-size: 150% auto;
     transition: transform 0.2s ease;
 }
 
