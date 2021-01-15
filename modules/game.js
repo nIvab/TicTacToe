@@ -1,21 +1,3 @@
-/* 
-There might be a bit too much going on here 
-Some quick notes:
-    What do I want the class game to do?
-        - construct the board we will be playing on  /d
-        - create the appropriate players (human and computer or pvp) 
-        - check if the game is won and who has won /d
-        - reset the board if needed 
-        - whos turn it is (X or O)
-    What do I want the class player to do? 
-        - keep track what kind of player it is (human or comp)
-        - keep track of what moves they have made (may be redundant because of game board)
-    What do I want the human player class to do? 
-        - make moves 
-    What do I want the computer player class to do? 
-        - make moves 
-        - utilise the minmax algorithm to find best moves to make  
-*/
 import compPlayer from "./ai.js";
 
 const game = () => {
@@ -52,29 +34,21 @@ const game = () => {
         }
     };
 
-    // tightly coupled with turn() and startGame()
-    const turnClick = (marker, divContainer) => {
-        console.log("turnClick");
-        if (board[i] == "e") {
-            divContainer.innerHTML = marker; // X or O
-            if (marker == "X") {
-                board[i] = "X";
-            } else if (marker == "O") {
-                board[i] = "O";
-            }
-        }
-    };
-
-    // tightly coupled with startGame() and turnClick()
     const turn = (player, altPlayer, divContainer) => {
-        if (checkIfGameOver() !== "game not over") {
-            console.log(checkIfGameOver());
-            return checkIfGameOver();
-        } else {
-            turnClick(player.marker, divContainer);
-            console.log(divContainer);
-            debugger;
-            turn(altPlayer, player, divContainer);
+        for (let i = 0; i < divContainer.length; i++) {
+            if (board[i] == "e") {
+                divContainer[i].addEventListener("click", (square) => {
+                    console.log(divContainer[i], divContainer[i].innerHTML);
+                    divContainer[i].innerHTML = `${player.marker}`; // X or O
+                    divContainer[i].disabled = true;
+                    board[i] = player.marker;
+                    console.log(board);
+
+                    let temp = player;
+                    player = altPlayer;
+                    altPlayer = temp;
+                });
+            }
         }
     };
 
@@ -139,7 +113,6 @@ const game = () => {
         winConditions,
         PVPorPVE,
         startGame,
-        turnClick,
         turn,
         checkIfGameOver,
         emptyIndicies,
