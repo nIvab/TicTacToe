@@ -1,6 +1,5 @@
 /* 
 There might be a bit too much going on here 
-
 Some quick notes:
     What do I want the class game to do?
         - construct the board we will be playing on  /d

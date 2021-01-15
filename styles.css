@@ -143,11 +143,16 @@ h1 {
 }
 
 /* -------------- CSS for BUTTONS HERE --------------- */
+.vsQuestion {
+    font-family: "Quantico";
+    color: rgb(123, 187, 192);
+    font-size: 20pt;
+}
+
 .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2px;
     font-style: italic;
     outline: none;
     padding: 30px;
@@ -235,7 +240,8 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 0 auto;
+    margin: -50px auto;
+    padding-right: 30px;
 }
 
 .switchText {
@@ -287,7 +293,6 @@ input:checked + .slider:before {
     width: 100%;
     height: 100%;
     margin: auto;
-    /*clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
     color: white;
     background: linear-gradient(135deg, #5700f8, #c95f7f, #ffaf7b) fixed;
     background-size: 200% auto;
@@ -296,4 +301,30 @@ input:checked + .slider:before {
 
 .squareActive:hover {
     transform: scale(1.05);
+}
+
+.sqaureGameOver {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    /*clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
+    color: white;
+    background: linear-gradient(135deg, #00f867, #b05fc9, #f3185a) fixed;
+    background-size: 150% auto;
+    transition: transform 0.2s ease;
+}
+
+/* ----------- CSS for GAME CONTAINER HERE --------- */
+
+#gameOver {
+    display: none;
+    padding: 20px;
+    font-family: "Quantico";
+    color: rgb(207, 207, 207);
+    font-size: 40pt;
+    text-align: center;
 }
