@@ -1,8 +1,6 @@
 import compPlayer from "./ai.js";
 
 const game = () => {
-    let board = ["e", "e", "e", "e", "e", "e", "e", "e", "e"]; // e for empty, change each to X or O depending on how game transpires
-
     //if any of these cordinates are filled by either player game is over
     const winConditions = [
         [0, 1, 2],
@@ -35,21 +33,25 @@ const game = () => {
     };
 
     const turn = (player, altPlayer, divContainer, gameOverDiv) => {
+        console.log("all the squares! :     ", divContainer);
+        let board = ["e", "e", "e", "e", "e", "e", "e", "e", "e"]; // e for empty, change each to X or O depending on how game transpires
         for (let i = 0; i < divContainer.length; i++) {
             if (board[i] == "e") {
-                divContainer[i].addEventListener("click", (square) => {
-                    console.log(divContainer[i], divContainer[i].innerHTML);
+                divContainer[i].addEventListener("click", () => {
+                    console.log("------- TURN ------");
+                    console.log(divContainer);
                     divContainer[i].innerHTML = `${player.marker}`; // X or O
                     divContainer[i].disabled = true;
                     board[i] = player.marker;
-                    console.log(board);
 
                     let temp = player;
                     player = altPlayer;
                     altPlayer = temp;
-                    console.log(checkIfGameOver());
-                    if (checkIfGameOver() != "game not over") {
-                        console.log("d1: ", divContainer);
+
+                    console.log(board);
+                    console.log(checkIfGameOver(board));
+                    if (checkIfGameOver(board) !== "game not over") {
+                        console.log("shouldnt be called");
                         gameOverDude(divContainer, gameOverDiv);
                     }
                 });
@@ -57,7 +59,7 @@ const game = () => {
         }
     };
 
-    const checkIfGameOver = () => {
+    const checkIfGameOver = (board) => {
         //define flags for each outcome
         let player1WinCheck = false;
         let player2WinCheck = false;
@@ -68,7 +70,6 @@ const game = () => {
         // if none of win conditions are met )
         for (let i = 0; i < board.length; i++) {
             if (board[i] == "e") {
-                console.log(board[i]);
                 emptySpaceCheck = true;
             }
         }
@@ -108,7 +109,8 @@ const game = () => {
 
         divContainer.forEach((square) => {
             square.disabled = true;
-            square.className += "sqaureGameOver";
+            square.classList.remove("squareActive");
+            square.className = "sqaureGameOver";
         });
     };
 
@@ -122,14 +124,24 @@ const game = () => {
         return resetNeeded;
     };
 
-    const resetGame = (input, divContainer, gameOverDiv) => {
-        let newBoard = ["e", "e", "e", "e", "e", "e", "e", "e", "e"];
-        var { player1, player2 } = PVPorPVE(input);
+    const resetGame = (input, divContainer, wholeContainer, gameOverDiv) => {
+        console.log("------ RESET --------");
+        console.log(wholeContainer);
+        var { player1, player2 } = PVPorPVE(input); // define new players
+        gameOverDiv.style.display = "none"; // take away game over sign
         divContainer.forEach((square) => {
-            square.innerHTML = " ";
-            square.disabled = false;
+            square.remove(); // clear the board completely (solves dupe. event listener bug)
         });
-        turn(player1, player2, divContainer, gameOverDiv);
+        for (let i = 0; i < 9; i++) {
+            let newSquares = document.createElement("button");
+            newSquares.className = "squareActive";
+            wholeContainer.innerHTML += `<button class="squareActive"></button>`;
+        }
+
+        let list = wholeContainer.querySelectorAll(".squareActive");
+
+        console.log(wholeContainer);
+        turn(player1, player2, list, gameOverDiv);
     };
 
     const emptyIndicies = () => {
@@ -144,7 +156,6 @@ const game = () => {
     };
 
     return [
-        board,
         winConditions,
         PVPorPVE,
         startGame,

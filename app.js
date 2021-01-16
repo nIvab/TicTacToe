@@ -1,7 +1,7 @@
 import game from "./modules/game.js";
 import compPlayer from "./modules/ai.js"; // hmmm
 
-const gameBox = document.querySelectorAll(".gameContainer");
+const gameBox = document.querySelector(".gameContainer");
 const squares = document.querySelectorAll(".square");
 console.log(squares);
 const startButton = document.querySelector("#startGame");
@@ -10,7 +10,6 @@ const squareNew = document.querySelectorAll(".squareActive");
 const gameOverDiv = document.querySelector("#gameOver");
 
 const [
-    board,
     winConditions,
     PVPorPVE,
     startGame,
@@ -26,28 +25,23 @@ startButton.addEventListener("click", () => {
     if (checkIfResetNeeded(squares) == false) {
         // when we first start the site
         squares.forEach((square) => {
-            square.className += " squareActive";
+            square.className = " squareActive";
         });
         // can turn this into a function
         if (aiCheck.checked) {
             var { player1, player2 } = PVPorPVE("PVE");
             console.log(checkIfGameOver());
-            if (checkIfGameOver() === "game not over") {
-                turn(player1, player2, sqaures, gameOverDiv);
-            }
+            turn(player1, player2, sqaures, gameOverDiv);
         } else {
             var { player1, player2 } = PVPorPVE("PVP");
-            console.log(checkIfGameOver());
-            if (checkIfGameOver() === "game not over") {
-                turn(player1, player2, squares, gameOverDiv);
-            }
+            turn(player1, player2, squares, gameOverDiv);
         }
     } else {
         // if we would like to reset
         if (aiCheck.checked) {
-            resetGame("PVE", squares, gameOverDiv);
+            resetGame("PVE", squares, gameBox, gameOverDiv);
         } else {
-            resetGame("PVP", squares, gameOverDiv);
+            resetGame("PVP", squares, gameBox, gameOverDiv);
         }
     }
 });
